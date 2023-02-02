@@ -71,47 +71,48 @@ def get_menu_info():
                     third_child_list = child.get("childrenList")
                     for third_child in third_child_list:
                         print(f"三级菜单名称: {third_child['sortName']},sortId:{third_child['id']},sortLevel:{third_child['sortLevel']}")
-                        fruit_url = g_fruit_url.format(third_child['id'], third_child['sortLevel'],1)
-                        res_fruit = requests.get(fruit_url,headers=g_headers)
-                        res_fruit.encoding = 'utf-8'
-                        json_data_fruit = json.loads(res_fruit.text)
-                        list_data_fruit = json_data_fruit['rows']
-                        for data_fruit in list_data_fruit:
-                            print(f"三级商品名称:{data_fruit['goodsName']}, 商品id:{data_fruit['id']}")
-                            detail_url = g_detail_url.format(data_fruit['id'])
-                            detail_res = requests.get(detail_url,headers=g_headers)
-                            detail_res.encoding = 'utf-8'
-                            json_data_detail = json.loads(detail_res.text)
-                            detail_info = json_data_detail['data']
-                            print(f"detail_info:{detail_info}")
-                            with open(f'data_{get_time_str()}.csv',mode='a+') as f:
-                                csv_writer = csv.writer(f)
-                                input_1 = data['sortName']
-                                input_2 = child['sortName']
-                                input_3 = third_child['sortName']
-                                input_4 = data_fruit['goodsName']
-                                input_5 = data_fruit['id']
-                                input_6 = detail_info['shopName']
-                                input_7 = detail_info['inventory']
-                                input_8 = detail_info['grossWeight']
-                                input_9 = detail_info['suttle']
-                                input_10 = detail_info['nowPrice']
-                                input_11 = float(input_10) + float(input_8)*0.3 + 2
-                                input_12 = 'None'
-                                input_13 = float(input_11)/0.7
-                                input_14 = 'None'
-                                input_15 = input_13 * 0.05
-                                input_16 = input_13 - input_11 - input_15
-                                input_17 = input_16 / input_13
-                                input_18 = 'None'
-                                input_19 = 'None'
-                                input_20 = 'None'
-                                input_21 = detail_info['goodsInstruction']
-                                input_22 = detail_info['goodsAttributeInfoDO']['freeAfterSales']
-                                input_23 = detail_info['goodsCover']
-                                input_24 = detail_info['goodsImage']
-                                input_25 = detail_info['goodsVideo']
-                                csv_writer.writerow([str(input_1),
+                        for i in range(1,30):
+                            fruit_url = g_fruit_url.format(third_child['id'], third_child['sortLevel'],i)
+                            res_fruit = requests.get(fruit_url,headers=g_headers)
+                            res_fruit.encoding = 'utf-8'
+                            json_data_fruit = json.loads(res_fruit.text)
+                            list_data_fruit = json_data_fruit['rows']
+                            for data_fruit in list_data_fruit:
+                                print(f"三级商品名称:{data_fruit['goodsName']}, 商品id:{data_fruit['id']}")
+                                detail_url = g_detail_url.format(data_fruit['id'])
+                                detail_res = requests.get(detail_url,headers=g_headers)
+                                detail_res.encoding = 'utf-8'
+                                json_data_detail = json.loads(detail_res.text)
+                                detail_info = json_data_detail['data']
+                                print(f"detail_info:{detail_info}")
+                                with open(f'data_{get_time_str()}.csv',mode='a+') as f:
+                                    csv_writer = csv.writer(f)
+                                    input_1 = data['sortName']
+                                    input_2 = child['sortName']
+                                    input_3 = third_child['sortName']
+                                    input_4 = data_fruit['goodsName']
+                                    input_5 = data_fruit['id']
+                                    input_6 = detail_info['shopName']
+                                    input_7 = detail_info['inventory']
+                                    input_8 = detail_info['grossWeight']
+                                    input_9 = detail_info['suttle']
+                                    input_10 = detail_info['nowPrice']
+                                    input_11 = float(input_10) + float(input_8)*0.3 + 2
+                                    input_12 = 'None'
+                                    input_13 = float(input_11)/0.7
+                                    input_14 = 'None'
+                                    input_15 = input_13 * 0.05
+                                    input_16 = input_13 - input_11 - input_15
+                                    input_17 = input_16 / input_13
+                                    input_18 = 'None'
+                                    input_19 = 'None'
+                                    input_20 = 'None'
+                                    input_21 = detail_info['goodsInstruction']
+                                    input_22 = detail_info['goodsAttributeInfoDO']['freeAfterSales']
+                                    input_23 = detail_info['goodsCover']
+                                    input_24 = detail_info['goodsImage']
+                                    input_25 = detail_info['goodsVideo']
+                                    csv_writer.writerow([str(input_1),
                                                      str(input_2),
                                                      str(input_3),
                                                      str(input_4),
@@ -136,10 +137,8 @@ def get_menu_info():
                                                      str(input_23),
                                                      str(input_24),
                                                      str(input_25),])
-                                print('csv文件写入成功！')
-                                
-                                
-                                
+                                    print('csv文件写入成功！')
+                            
                 else:
                     fruit_url = g_fruit_url.format(child['id'], child['sortLevel'],1)
                     res_fruit = requests.get(fruit_url,headers=g_headers)
