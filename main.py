@@ -130,7 +130,7 @@ def get_menu_info():
                                                      str(input_17),
                                                      str(input_18),
                                                      str(input_19),
-                                                     str(input_20),                                                     str(input_15),
+                                                     str(input_20),
                                                      str(input_21),
                                                      str(input_22),
                                                      str(input_23),
